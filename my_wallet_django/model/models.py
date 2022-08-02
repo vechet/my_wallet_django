@@ -215,3 +215,4 @@ class PhotoAndVideo(models.Model):
     sort_order = models.IntegerField()
     file_name = models.CharField(max_length=200)
     user_account_id = models.IntegerField(null=True, blank=True)
+    memo = models.CharField(max_length=500, null=True, blank=True)
