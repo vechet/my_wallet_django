@@ -83,11 +83,11 @@ def login(username: str, password: str, username_token=Depends(auth_handler.auth
                     message="Login").dict(exclude_none=True)
 
 
-@ router.get('/unprotected')
+@router.get('/unprotected')
 def unprotected():
     return {'hello': 'world'}
 
 
-@ router.get('/protected')
+@router.get('/protected')
 def protected(username=Depends(auth_handler.auth_wrapper)):
     return {'name': username}
