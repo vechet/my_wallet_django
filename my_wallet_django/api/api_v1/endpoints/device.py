@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from api_modules.device.crud_device import get_device, create_device, update_device, delete_device
-from api_modules.device.schemas import DeviceSchema, RequestDevice
-from api_modules.base_schemas import Response
-from config import SessionLocal
+from my_wallet_django.api_modules.device.crud_device import get_device, create_device, update_device, delete_device
+from my_wallet_django.api_modules.device.schemas import DeviceSchema, RequestDevice
+from my_wallet_django.api_modules.base_schemas import Response
+from my_wallet_django.config import SessionLocal
 
 router = APIRouter()
 

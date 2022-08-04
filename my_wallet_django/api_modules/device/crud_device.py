@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-from api_modules.device.models import Device
-from api_modules.device.schemas import DeviceSchema
+from my_wallet_django.api_modules.device.models import Device
+from my_wallet_django.api_modules.device.schemas import DeviceSchema
 
 
 def get_device(db: Session, skip: int = 0, limit: int = 100):

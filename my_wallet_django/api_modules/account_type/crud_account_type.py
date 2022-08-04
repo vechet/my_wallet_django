@@ -1,11 +1,11 @@
 from datetime import datetime
 import sys
 from sqlalchemy.orm import Session
-from api_modules.account_type.models import AccountType
-from api_modules.account_type.schemas import AccountTypeCreate, AccountTypeUpdate
-from api_modules.status.models import Status
-from api_modules.configuration.models import Configuration
-from api_modules.base_schemas import Response
+from my_wallet_django.api_modules.account_type.models import AccountType
+from my_wallet_django.api_modules.account_type.schemas import AccountTypeCreate, AccountTypeUpdate
+from my_wallet_django.api_modules.status.models import Status
+from my_wallet_django.api_modules.configuration.models import Configuration
+from my_wallet_django.api_modules.base_schemas import Response
 
 
 def get_account_type(db: Session, skip: int = 0, limit: int = 100):

@@ -16,7 +16,7 @@ pip install -r requirements.txt
 
 ```
 python manage.py runserver
-uvicorn main:app --reload
+uvicorn my_wallet_django.main:app --reload
 ```
 
 ##

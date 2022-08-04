@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from api.api_v1.endpoints import items, authentication, device, account_type
+from my_wallet_django.api.api_v1.endpoints import items, authentication, device, account_type
 
 api_router = APIRouter()
 api_router.include_router(authentication.router,

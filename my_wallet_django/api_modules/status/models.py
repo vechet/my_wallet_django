@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String, DateTime
-from config import Base
+from my_wallet_django.config import Base
 
 
 class Status(Base):

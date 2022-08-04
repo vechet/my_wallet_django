@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Depends, HTTPException
-from api_modules.authentication.auth import AuthHandler
-from api_modules.authentication.schemas import AuthDetails
-from config import SessionLocal
+from my_wallet_django.api_modules.authentication.auth import AuthHandler
+from my_wallet_django.api_modules.authentication.schemas import AuthDetails
+from my_wallet_django.config import SessionLocal
 from sqlalchemy.orm import Session
-from api_modules.auth_user_models import AuthUser
+from my_wallet_django.api_modules.auth_user_models import AuthUser
 from datetime import datetime
-from api_modules.base_schemas import Response
+from my_wallet_django.api_modules.base_schemas import Response
 
 router = APIRouter()
 auth_handler = AuthHandler()

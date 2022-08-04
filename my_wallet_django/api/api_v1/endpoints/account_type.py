@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from api_modules.account_type.crud_account_type import get_account_type, create_account_type, update_account_type, delete_account_type
-from api_modules.account_type.schemas import AccountTypeCreate, AccountTypeUpdate, AccountTypeDelete
-from api_modules.base_schemas import Response
-from config import SessionLocal
-from api_modules.authentication.auth import AuthHandler
+from my_wallet_django.api_modules.account_type.crud_account_type import get_account_type, create_account_type, update_account_type, delete_account_type
+from my_wallet_django.api_modules.account_type.schemas import AccountTypeCreate, AccountTypeUpdate, AccountTypeDelete
+from my_wallet_django.api_modules.base_schemas import Response
+from my_wallet_django.config import SessionLocal
+from my_wallet_django.api_modules.authentication.auth import AuthHandler
 
 router = APIRouter()
 auth_handler = AuthHandler()

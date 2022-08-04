@@ -1,6 +1,6 @@
 from xmlrpc.client import Boolean
 from sqlalchemy import Column, DateTime, Integer, String, Boolean
-from config import Base
+from my_wallet_django.config import Base
 
 
 class AuthUser(Base):
