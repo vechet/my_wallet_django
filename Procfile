@@ -1,1 +1,1 @@
-web: gunicorn my_wallet_django.wsgi --log-file -
+web: uvicorn my_wallet_django.main:app --host=0.0.0.0 --port=${PORT:-5000}
