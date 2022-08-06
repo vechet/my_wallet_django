@@ -68,21 +68,6 @@ def create_token(auth_details: AuthDetails, db: Session = Depends(get_db)):
     return Response(status="Ok", code="200", message="Create token successfully", result=token)
 
 
-@router.get('/login')
-def login(username: str, password: str, username_token=Depends(auth_handler.auth_wrapper), db: Session = Depends(get_db)):
-    user = db.query(AuthUser).filter(
-        AuthUser.username == username).first()
-
-    if (user is None) or (not auth_handler.verify_password(password, user.password)):
-        return Response(status="Error: Unauthorized",
-                        code="401",
-                        message="Invalid username and/or password!").dict(exclude_none=True)
-
-    return Response(status="Ok",
-                    code="200",
-                    message="Login").dict(exclude_none=True)
-
-
 @router.get('/unprotected')
 def unprotected():
     return {'hello': 'world'}
