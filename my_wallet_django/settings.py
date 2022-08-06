@@ -77,26 +77,26 @@ WSGI_APPLICATION = 'my_wallet_django.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'my_wallet',
-        'USER': 'postgres',
-        'PASSWORD': 'cheT',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'df81ua8gcn4i42',
-#         'USER': 'kyioskebqiiols',
-#         'PASSWORD': 'bfaa60a537021c84f276e122642e47a2f58a102792480561e6a839fc9187284b',
-#         'HOST': 'ec2-3-213-228-206.compute-1.amazonaws.com',
+#         'NAME': 'my_wallet',
+#         'USER': 'postgres',
+#         'PASSWORD': 'cheT',
+#         'HOST': 'localhost',
 #         'PORT': '5432',
 #     }
 # }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'df81ua8gcn4i42',
+        'USER': 'kyioskebqiiols',
+        'PASSWORD': 'bfaa60a537021c84f276e122642e47a2f58a102792480561e6a839fc9187284b',
+        'HOST': 'ec2-3-213-228-206.compute-1.amazonaws.com',
+        'PORT': '5432',
+    }
+}
 
 
 # Password validation
