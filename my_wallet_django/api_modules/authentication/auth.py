@@ -28,7 +28,7 @@ class AuthHandler():
             self.secret,
             algorithm='HS256'
         )
-        return {'token': token, "expiresIn": timedelta(days=1, minutes=5)}
+        return {'token': token, "expiresIn": payload['exp']}
 
     def decode_token(self, token):
         try:

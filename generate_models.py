@@ -92,8 +92,7 @@ class DjangoAdminLog(models.Model):
     object_repr = models.CharField(max_length=200)
     action_flag = models.SmallIntegerField()
     change_message = models.TextField()
-    content_type = models.ForeignKey(
-        'DjangoContentType', models.DO_NOTHING, blank=True, null=True)
+    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING, blank=True, null=True)
     user = models.ForeignKey(AuthUser, models.DO_NOTHING)
 
     class Meta:
@@ -142,11 +141,9 @@ class ModelAccount(models.Model):
     modified_date = models.DateTimeField(blank=True, null=True)
     version = models.IntegerField()
     account_type = models.ForeignKey('ModelAccounttype', models.DO_NOTHING)
-    created_by = models.ForeignKey(
-        AuthUser, models.DO_NOTHING, db_column='created_by')
+    created_by = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='created_by')
     currency = models.ForeignKey('ModelCurrency', models.DO_NOTHING)
-    modified_by = models.ForeignKey(
-        AuthUser, models.DO_NOTHING, db_column='modified_by', blank=True, null=True)
+    modified_by = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='modified_by', blank=True, null=True)
     status = models.ForeignKey('ModelStatus', models.DO_NOTHING)
 
     class Meta:
@@ -162,15 +159,24 @@ class ModelAccounttype(models.Model):
     created_date = models.DateTimeField()
     modified_date = models.DateTimeField(blank=True, null=True)
     version = models.IntegerField()
-    created_by = models.ForeignKey(
-        AuthUser, models.DO_NOTHING, db_column='created_by')
-    modified_by = models.ForeignKey(
-        AuthUser, models.DO_NOTHING, db_column='modified_by', blank=True, null=True)
+    created_by = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='created_by')
+    modified_by = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='modified_by', blank=True, null=True)
     status = models.ForeignKey('ModelStatus', models.DO_NOTHING)
 
     class Meta:
         managed = False
         db_table = 'model_accounttype'
+
+
+class ModelAuthusertoken(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    token = models.TextField()
+    expires_in = models.DateTimeField()
+    user_account = models.ForeignKey(AuthUser, models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'model_authusertoken'
 
 
 class ModelCategory(models.Model):
@@ -181,12 +187,9 @@ class ModelCategory(models.Model):
     created_date = models.DateTimeField()
     modified_date = models.DateTimeField(blank=True, null=True)
     version = models.IntegerField()
-    created_by = models.ForeignKey(
-        AuthUser, models.DO_NOTHING, db_column='created_by')
-    modified_by = models.ForeignKey(
-        AuthUser, models.DO_NOTHING, db_column='modified_by', blank=True, null=True)
-    parent = models.ForeignKey(
-        'self', models.DO_NOTHING, blank=True, null=True)
+    created_by = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='created_by')
+    modified_by = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='modified_by', blank=True, null=True)
+    parent = models.ForeignKey('self', models.DO_NOTHING, blank=True, null=True)
     status = models.ForeignKey('ModelStatus', models.DO_NOTHING)
 
     class Meta:
@@ -228,10 +231,8 @@ class ModelCurrency(models.Model):
     created_date = models.DateTimeField()
     modified_date = models.DateTimeField(blank=True, null=True)
     version = models.IntegerField()
-    created_by = models.ForeignKey(
-        AuthUser, models.DO_NOTHING, db_column='created_by')
-    modified_by = models.ForeignKey(
-        AuthUser, models.DO_NOTHING, db_column='modified_by', blank=True, null=True)
+    created_by = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='created_by')
+    modified_by = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='modified_by', blank=True, null=True)
     status = models.ForeignKey('ModelStatus', models.DO_NOTHING)
 
     class Meta:
@@ -250,10 +251,8 @@ class ModelCustomer(models.Model):
     created_date = models.DateTimeField()
     modified_date = models.DateTimeField(blank=True, null=True)
     version = models.IntegerField()
-    created_by = models.ForeignKey(
-        AuthUser, models.DO_NOTHING, db_column='created_by')
-    modified_by = models.ForeignKey(
-        AuthUser, models.DO_NOTHING, db_column='modified_by', blank=True, null=True)
+    created_by = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='created_by')
+    modified_by = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='modified_by', blank=True, null=True)
     status = models.ForeignKey('ModelStatus', models.DO_NOTHING)
 
     class Meta:
@@ -275,8 +274,7 @@ class ModelErrorreport(models.Model):
     module_name = models.CharField(max_length=100)
     message = models.CharField(max_length=4000)
     created_date = models.DateTimeField()
-    created_by = models.ForeignKey(
-        AuthUser, models.DO_NOTHING, db_column='created_by')
+    created_by = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='created_by')
 
     class Meta:
         managed = False
@@ -290,8 +288,7 @@ class ModelFiledocument(models.Model):
     file_name = models.CharField(max_length=200)
     file_extension = models.CharField(max_length=5)
     file_type = models.IntegerField()
-    income_or_expense = models.ForeignKey(
-        'ModelIncomeorexpense', models.DO_NOTHING)
+    income_or_expense = models.ForeignKey('ModelIncomeorexpense', models.DO_NOTHING)
 
     class Meta:
         managed = False
@@ -325,11 +322,9 @@ class ModelIncomeorexpense(models.Model):
     version = models.IntegerField()
     account = models.ForeignKey(ModelAccount, models.DO_NOTHING)
     category = models.ForeignKey(ModelCategory, models.DO_NOTHING)
-    created_by = models.ForeignKey(
-        AuthUser, models.DO_NOTHING, db_column='created_by')
+    created_by = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='created_by')
     customer = models.ForeignKey(ModelCustomer, models.DO_NOTHING)
-    modified_by = models.ForeignKey(
-        AuthUser, models.DO_NOTHING, db_column='modified_by', blank=True, null=True)
+    modified_by = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='modified_by', blank=True, null=True)
     payment_method = models.ForeignKey('ModelPaymentmethod', models.DO_NOTHING)
     status = models.ForeignKey('ModelStatus', models.DO_NOTHING)
 
@@ -355,10 +350,8 @@ class ModelPaymentmethod(models.Model):
     created_date = models.DateTimeField()
     modified_date = models.DateTimeField(blank=True, null=True)
     version = models.IntegerField()
-    created_by = models.ForeignKey(
-        AuthUser, models.DO_NOTHING, db_column='created_by')
-    modified_by = models.ForeignKey(
-        AuthUser, models.DO_NOTHING, db_column='modified_by', blank=True, null=True)
+    created_by = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='created_by')
+    modified_by = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='modified_by', blank=True, null=True)
     status = models.ForeignKey('ModelStatus', models.DO_NOTHING)
 
     class Meta:
@@ -384,10 +377,8 @@ class ModelStatus(models.Model):
     created_date = models.DateTimeField()
     modified_date = models.DateTimeField(blank=True, null=True)
     version = models.IntegerField()
-    created_by = models.ForeignKey(
-        AuthUser, models.DO_NOTHING, db_column='created_by')
-    modified_by = models.ForeignKey(
-        AuthUser, models.DO_NOTHING, db_column='modified_by', blank=True, null=True)
+    created_by = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='created_by')
+    modified_by = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='modified_by', blank=True, null=True)
 
     class Meta:
         managed = False

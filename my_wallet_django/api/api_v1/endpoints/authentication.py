@@ -3,7 +3,7 @@ from my_wallet_django.api_modules.authentication.auth import AuthHandler
 from my_wallet_django.api_modules.authentication.schemas import AuthDetails
 from my_wallet_django.config import SessionLocal
 from sqlalchemy.orm import Session
-from my_wallet_django.api_modules.auth_user_models import AuthUser
+from my_wallet_django.api_modules.authentication.models import AuthUser, AuthUserToken
 from datetime import datetime
 from my_wallet_django.api_modules.base_schemas import Response
 
@@ -64,6 +64,15 @@ def create_token(auth_details: AuthDetails, db: Session = Depends(get_db)):
     # generate token
     token = auth_handler.encode_token(user.username)
     token['user_id'] = user.id
+
+    # create token
+    new_auth_user_token = AuthUserToken(
+        token=token['token'],
+        expires_in=token['expiresIn'],
+        user_account_id=user.id
+    )
+    db.add(new_auth_user_token)
+    db.commit()
 
     return Response(status="Ok", code="200", message="Create token successfully", result=token)
 

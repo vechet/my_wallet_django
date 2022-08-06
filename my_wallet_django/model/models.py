@@ -216,3 +216,11 @@ class PhotoAndVideo(models.Model):
     file_name = models.CharField(max_length=200)
     user_account_id = models.IntegerField(null=True, blank=True)
     memo = models.CharField(max_length=500, null=True, blank=True)
+
+
+class AuthUserToken(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    token = models.TextField()
+    expires_in = models.DateTimeField()
+    user_account_id = models.ForeignKey(
+        User, models.DO_NOTHING, db_column='user_account_id')
