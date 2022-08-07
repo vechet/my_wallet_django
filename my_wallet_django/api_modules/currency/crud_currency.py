@@ -5,7 +5,7 @@ from my_wallet_django.api_modules.status.models import Status
 from my_wallet_django.api_modules.base_schemas import Response
 
 
-def get_currency(db: Session, skip: int = 0, limit: int = 100):
+def get_currency(db: Session, skip: int, limit: int):
     try:
         status = db.query(Status).filter(Status.key_name == "Active").first()
         results = db.query(Currency).where(

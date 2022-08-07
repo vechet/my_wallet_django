@@ -3,7 +3,7 @@ from my_wallet_django.api_modules.device.models import Device
 from my_wallet_django.api_modules.device.schemas import DeviceSchema
 
 
-def get_device(db: Session, skip: int = 0, limit: int = 100):
+def get_device(db: Session, skip: int, limit: int):
     return db.query(Device).offset(skip).limit(limit).all()
 
 

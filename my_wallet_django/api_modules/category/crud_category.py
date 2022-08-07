@@ -8,8 +8,22 @@ from my_wallet_django.api_modules.configuration.models import Configuration
 from my_wallet_django.api_modules.base_schemas import Response
 
 
-def get_category(db: Session, skip: int = 0, limit: int = 100):
+def get_category(db: Session, skip: int, limit: int, parent_id: int, name: str):
     try:
+        totalCount = 0
+        # filter name
+        if(name != ''):
+            filterName = db.query(Category).where(
+                Category.name == name).order_by(Category.id).offset(skip).limit(limit).all()
+            return Response(status="Ok", code="200", message="Fetch data successfully!", result=filterName)
+
+        # filter parent id
+        if(parent_id != ''):
+            filterParentId = db.query(Category).where(
+                Category.parent_id == parent_id).order_by(Category.id).offset(skip).limit(limit).all()
+            return Response(status="Ok", code="200", message="Fetch data successfully!", result=filterParentId)
+
+        # norma filter
         status = db.query(Status).filter(Status.key_name == "Active").first()
         results = db.query(Category).where(
             Category.status_id == status.id).order_by(Category.id).offset(skip).limit(limit).all()

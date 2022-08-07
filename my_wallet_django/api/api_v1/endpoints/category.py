@@ -19,8 +19,15 @@ def get_db():
 
 
 @router.get("/category")
-async def get_category_service(skip: int = 0, limit: int = 100, username=Depends(auth_handler.auth_wrapper), db: Session = Depends(get_db)):
-    _categories = get_category(db, skip, limit)
+async def get_category_service(
+    skip: int = 0,
+    limit: int = 100,
+    parent_id: int = 0,
+    name: str = '',
+    username=Depends(auth_handler.auth_wrapper),
+    db: Session = Depends(get_db)
+):
+    _categories = get_category(db, skip, limit, parent_id, name)
     return _categories
 
 

@@ -8,7 +8,7 @@ from my_wallet_django.api_modules.configuration.models import Configuration
 from my_wallet_django.api_modules.base_schemas import Response
 
 
-def get_account_type(db: Session, skip: int = 0, limit: int = 100):
+def get_account_type(db: Session, skip: int, limit: int):
     try:
         status = db.query(Status).filter(Status.key_name == "Active").first()
         results = db.query(AccountType).where(
