@@ -74,7 +74,24 @@ def create_token(auth_details: AuthDetails, db: Session = Depends(get_db)):
     db.add(new_auth_user_token)
     db.commit()
 
-    return Response(status="Ok", code="200", message="Create token successfully", result=token)
+    return Response(status="Ok", code="200", message="Create token successfully!", result=token)
+
+
+@router.post('/login')
+def login(auth_details: AuthDetails, db: Session = Depends(get_db)):
+    user = db.query(AuthUser).filter(
+        AuthUser.username == auth_details.username).first()
+
+    if (user is None) or (not auth_handler.verify_password(auth_details.password, user.password)):
+        return Response(status="Error: Unauthorized",
+                        code="401",
+                        message="Invalid username and/or password!").dict(exclude_none=True)
+
+    # get token
+    results = db.query(AuthUserToken).filter(
+        AuthUserToken.user_account_id == user.id).order_by(AuthUserToken.id.desc()).first()
+
+    return Response(status="Ok", code="200", message="Login successfully!", result=results)
 
 
 @router.get('/unprotected')
