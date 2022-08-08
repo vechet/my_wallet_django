@@ -134,7 +134,7 @@ class DjangoSession(models.Model):
 class ModelAccount(models.Model):
     id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=100)
-    back_account_number = models.CharField(max_length=500)
+    back_account_number = models.CharField(max_length=500, blank=True, null=True)
     opening_balance = models.DecimalField(max_digits=18, decimal_places=4)
     is_system_value = models.BooleanField()
     created_date = models.DateTimeField()

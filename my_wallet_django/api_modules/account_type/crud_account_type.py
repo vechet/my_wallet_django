@@ -4,7 +4,6 @@ from sqlalchemy.orm import Session
 from my_wallet_django.api_modules.account_type.models import AccountType
 from my_wallet_django.api_modules.account_type.schemas import AccountTypeCreate, AccountTypeUpdate
 from my_wallet_django.api_modules.status.models import Status
-from my_wallet_django.api_modules.configuration.models import Configuration
 from my_wallet_django.api_modules.base_schemas import Response
 
 

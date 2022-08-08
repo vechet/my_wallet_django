@@ -55,7 +55,8 @@ class Currency(models.Model):
 class Account(models.Model):
     id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=100)
-    back_account_number = models.CharField(max_length=500)
+    back_account_number = models.CharField(
+        max_length=500, null=True, blank=True)
     account_type_id = models.ForeignKey(
         AccountType, models.DO_NOTHING, db_column='account_type_id')
     opening_balance = models.DecimalField(max_digits=18, decimal_places=4)
