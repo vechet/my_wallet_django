@@ -80,6 +80,7 @@ class Category(models.Model):
     parent_id = models.ForeignKey(
         "self", models.DO_NOTHING, db_column='parent_id', null=True, blank=True)
     memo = models.CharField(max_length=500, null=True, blank=True)
+    icon = models.CharField(max_length=100, null=True, blank=True)
     is_system_value = models.BooleanField()
     status_id = models.ForeignKey(
         Status, models.DO_NOTHING, db_column='status_id')

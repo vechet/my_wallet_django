@@ -9,6 +9,7 @@ class Category(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String)
     memo = Column(String, nullable=True)
+    icon = Column(String, nullable=True)
     is_system_value = Column(Boolean)
     created_date = Column(DateTime)
     modified_date = Column(DateTime, nullable=True)

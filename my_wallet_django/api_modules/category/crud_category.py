@@ -10,7 +10,6 @@ from my_wallet_django.api_modules.base_schemas import Response
 
 def get_category(db: Session, skip: int, limit: int, parent_id: int, name: str):
     try:
-        totalCount = 0
         # filter name
         if(name != ''):
             filterName = db.query(Category).where(
@@ -43,6 +42,7 @@ def create_category(db: Session, category: CategoryCreate):
         new_category = Category(
             name=category.name,
             memo=category.memo,
+            icon=category.icon,
             is_system_value=False,
             created_date=datetime.now(),
             created_by=1,
@@ -73,6 +73,7 @@ def update_category(db: Session, category: CategoryUpdate):
             db=db, id=category.id)
         current_category.name = category.name
         current_category.memo = category.memo
+        current_category.icon = category.icon
         current_category.modified_date = datetime.now(),
         current_category.modified_by = 1,
         current_category.version = current_category.version + 1,
