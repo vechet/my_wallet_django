@@ -109,25 +109,6 @@ class ConfigurationParam(models.Model):
     name = models.CharField(max_length=300)
 
 
-class Customer(models.Model):
-    id = models.BigAutoField(primary_key=True)
-    name = models.CharField(max_length=100)
-    phone = models.CharField(max_length=100)
-    email = models.CharField(max_length=100)
-    address = models.CharField(max_length=100)
-    memo = models.CharField(max_length=500, null=True, blank=True)
-    is_system_value = models.BooleanField()
-    status_id = models.ForeignKey(
-        Status, models.DO_NOTHING, db_column='status_id')
-    created_by = models.ForeignKey(
-        User, models.DO_NOTHING, db_column='created_by')
-    created_date = models.DateTimeField()
-    modified_by = models.ForeignKey(
-        User, models.DO_NOTHING, db_column='modified_by', related_name='model_customer_modified_by_fk_auth_user_id', null=True, blank=True)
-    modified_date = models.DateTimeField(null=True, blank=True)
-    version = models.IntegerField()
-
-
 class Device(models.Model):
     id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=300)
@@ -166,12 +147,12 @@ class IncomeOrExpense(models.Model):
     amount = models.DecimalField(max_digits=18, decimal_places=4)
     transaction_date = models.DateTimeField()
     memo = models.CharField(max_length=500, null=True, blank=True)
-    customer_id = models.ForeignKey(
-        Customer, models.DO_NOTHING, db_column='customer_id')
     account_id = models.ForeignKey(
         Account, models.DO_NOTHING, db_column='account_id')
     payment_method_id = models.ForeignKey(
         PaymentMethod, models.DO_NOTHING, db_column='payment_method_id')
+    user_account_id = models.ForeignKey(
+        User, models.DO_NOTHING, db_column='user_account_id', related_name='model_income_or_expense_user_account_id_by_fk_auth_user_id', null=True, blank=True)
     is_system_value = models.BooleanField()
     status_id = models.ForeignKey(
         Status, models.DO_NOTHING, db_column='status_id')
