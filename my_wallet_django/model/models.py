@@ -152,7 +152,7 @@ class IncomeOrExpense(models.Model):
     payment_method_id = models.ForeignKey(
         PaymentMethod, models.DO_NOTHING, db_column='payment_method_id')
     user_account_id = models.ForeignKey(
-        User, models.DO_NOTHING, db_column='user_account_id', related_name='model_income_or_expense_user_account_id_by_fk_auth_user_id', null=True, blank=True)
+        User, models.DO_NOTHING, db_column='user_account_id', related_name='model_income_or_expense_user_account_id_by_fk_auth_user_id')
     is_system_value = models.BooleanField()
     status_id = models.ForeignKey(
         Status, models.DO_NOTHING, db_column='status_id')
@@ -173,7 +173,7 @@ class FileDocument(models.Model):
     file_extension = models.CharField(max_length=5)
     file_type = models.IntegerField()
     income_or_expense_id = models.ForeignKey(
-        IncomeOrExpense, models.DO_NOTHING, db_column='income_or_expense_id')
+        IncomeOrExpense, models.DO_NOTHING, db_column='income_or_expense_id', null=True, blank=True)
 
 
 class GlobalParam(models.Model):
