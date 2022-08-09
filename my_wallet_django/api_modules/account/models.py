@@ -3,7 +3,7 @@ from sqlalchemy import Column, DateTime, Integer, String, Boolean, DECIMAL
 from my_wallet_django.config import Base
 
 
-class AccountType(Base):
+class Account(Base):
     __tablename__ = "model_account"
 
     id = Column(Integer, primary_key=True)
