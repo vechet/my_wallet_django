@@ -191,6 +191,7 @@ class ModelCategory(models.Model):
     modified_by = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='modified_by', blank=True, null=True)
     parent = models.ForeignKey('self', models.DO_NOTHING, blank=True, null=True)
     status = models.ForeignKey('ModelStatus', models.DO_NOTHING)
+    icon = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -240,26 +241,6 @@ class ModelCurrency(models.Model):
         db_table = 'model_currency'
 
 
-class ModelCustomer(models.Model):
-    id = models.BigAutoField(primary_key=True)
-    name = models.CharField(max_length=100)
-    phone = models.CharField(max_length=100)
-    email = models.CharField(max_length=100)
-    address = models.CharField(max_length=100)
-    memo = models.CharField(max_length=500, blank=True, null=True)
-    is_system_value = models.BooleanField()
-    created_date = models.DateTimeField()
-    modified_date = models.DateTimeField(blank=True, null=True)
-    version = models.IntegerField()
-    created_by = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='created_by')
-    modified_by = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='modified_by', blank=True, null=True)
-    status = models.ForeignKey('ModelStatus', models.DO_NOTHING)
-
-    class Meta:
-        managed = False
-        db_table = 'model_customer'
-
-
 class ModelDevice(models.Model):
     id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=300)
@@ -288,7 +269,7 @@ class ModelFiledocument(models.Model):
     file_name = models.CharField(max_length=200)
     file_extension = models.CharField(max_length=5)
     file_type = models.IntegerField()
-    income_or_expense = models.ForeignKey('ModelIncomeorexpense', models.DO_NOTHING)
+    income_or_expense = models.ForeignKey('ModelIncomeorexpense', models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -323,10 +304,10 @@ class ModelIncomeorexpense(models.Model):
     account = models.ForeignKey(ModelAccount, models.DO_NOTHING)
     category = models.ForeignKey(ModelCategory, models.DO_NOTHING)
     created_by = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='created_by')
-    customer = models.ForeignKey(ModelCustomer, models.DO_NOTHING)
     modified_by = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='modified_by', blank=True, null=True)
     payment_method = models.ForeignKey('ModelPaymentmethod', models.DO_NOTHING)
     status = models.ForeignKey('ModelStatus', models.DO_NOTHING)
+    user_account = models.ForeignKey(AuthUser, models.DO_NOTHING)
 
     class Meta:
         managed = False

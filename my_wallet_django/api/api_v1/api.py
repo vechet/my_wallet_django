@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from my_wallet_django.api.api_v1.endpoints import items, authentication, device, account_type, currency, category, payment_method, account
+from my_wallet_django.api.api_v1.endpoints import items, authentication, device, account_type, currency, category, payment_method, account, income_or_expense
 
 api_router = APIRouter()
 api_router.include_router(authentication.router,
@@ -15,3 +15,5 @@ api_router.include_router(
     account_type.router, prefix="/v1", tags=["account type"])
 api_router.include_router(
     account.router, prefix="/v1", tags=["account"])
+api_router.include_router(
+    income_or_expense.router, prefix="/v1", tags=["income or expense"])
