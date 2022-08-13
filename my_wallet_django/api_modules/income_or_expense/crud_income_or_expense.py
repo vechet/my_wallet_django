@@ -1,5 +1,6 @@
 from datetime import datetime
 import sys
+from unicodedata import category
 from sqlalchemy.orm import Session
 from my_wallet_django.api_modules.account.models import Account
 from my_wallet_django.api_modules.category.models import Category
@@ -16,7 +17,33 @@ def get_income_or_expense(db: Session, skip: int, limit: int):
         status = db.query(Status).filter(Status.key_name == "Active").first()
         results = db.query(IncomeOrExpense).where(
             IncomeOrExpense.status_id == status.id).order_by(IncomeOrExpense.id).offset(skip).limit(limit).all()
-        return Response(status="Ok", code="200", message="Fetch data successfully!", result=results)
+
+        result_list = []
+        for result in results:
+            record = IncomeOrExpense(
+                type=result.type,
+                amount=result.amount,
+                transaction_date=result.transaction_date,
+                memo=result.memo,
+                is_system_value=result.is_system_value,
+                created_date=result.created_date,
+                created_by=result.created_by,
+                status_id=result.status_id,
+                version=result.version,
+                account={
+                    "id": result.account.id,
+                    "name": result.account.name},
+                category={
+                    "id": result.category.id,
+                    "name": result.category.name,
+                    "icon": result.category.icon},
+                payment_method={
+                    "id": result.payment_method.id,
+                    "name": result.payment_method.name},
+                user={"id": result.user.id, "name": result.user.username},
+            )
+            result_list.append(record)
+        return Response(status="Ok", code="200", message="Fetch data successfully!", result=result_list)
     except:
         print("Error: ", sys.exc_info()[0])
 
