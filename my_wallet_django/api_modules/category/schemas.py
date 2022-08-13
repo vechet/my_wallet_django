@@ -6,6 +6,7 @@ class CategoryCreate(BaseModel):
     name: str
     memo: Optional[str]
     icon: Optional[str]
+    parent_id: Optional[int]
 
 
 class CategoryUpdate(BaseModel):
@@ -13,6 +14,7 @@ class CategoryUpdate(BaseModel):
     name: str
     memo: Optional[str]
     icon: Optional[str]
+    parent_id: Optional[int]
 
 
 class CategoryDelete(BaseModel):

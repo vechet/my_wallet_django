@@ -43,6 +43,7 @@ def create_category(db: Session, category: CategoryCreate):
             name=category.name,
             memo=category.memo,
             icon=category.icon,
+            parent_id=category.parent_id,
             is_system_value=False,
             created_date=datetime.now(),
             created_by=1,
@@ -74,6 +75,7 @@ def update_category(db: Session, category: CategoryUpdate):
         current_category.name = category.name
         current_category.memo = category.memo
         current_category.icon = category.icon
+        current_category.parent_id = category.parent_id
         current_category.modified_date = datetime.now(),
         current_category.modified_by = 1,
         current_category.version = current_category.version + 1,

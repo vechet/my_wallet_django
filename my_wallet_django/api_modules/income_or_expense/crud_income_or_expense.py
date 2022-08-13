@@ -21,6 +21,7 @@ def get_income_or_expense(db: Session, skip: int, limit: int):
         result_list = []
         for result in results:
             record = IncomeOrExpense(
+                id=result.id,
                 type=result.type,
                 amount=result.amount,
                 transaction_date=result.transaction_date,
