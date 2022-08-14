@@ -14,7 +14,30 @@ def get_account(db: Session, skip: int, limit: int):
         status = db.query(Status).filter(Status.key_name == "Active").first()
         results = db.query(Account).where(
             Account.status_id == status.id).order_by(Account.id).offset(skip).limit(limit).all()
-        return Response(status="Ok", code="200", message="Fetch data successfully!", result=results)
+
+        result_list = []
+        for result in results:
+            record = Account(
+                id=result.id,
+                name=result.name,
+                back_account_number=result.back_account_number,
+                opening_balance=result.opening_balance,
+                # is_system_value=result.is_system_value,
+                # created_date=result.created_date,
+                # created_by=result.created_by,
+                # modified_date=result.modified_date,
+                # modified_by=result.modified_by,
+                # status_id=result.status_id,
+                # version=result.version,
+                account_type={
+                    "id": result.account_type.id,
+                    "name": result.account_type.name},
+                currency={
+                    "id": result.currency.id,
+                    "name": result.currency.name}
+            )
+            result_list.append(record)
+        return Response(status="Ok", code="200", message="Fetch data successfully!", result=result_list)
     except:
         print("Error: ", sys.exc_info()[0])
 

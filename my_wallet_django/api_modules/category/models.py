@@ -1,6 +1,8 @@
 from xmlrpc.client import Boolean
 from sqlalchemy import Column, DateTime, Integer, String, Boolean
 from my_wallet_django.config import Base
+from sqlalchemy.orm import relationship
+from sqlalchemy import ForeignKey
 
 
 class Category(Base):
@@ -17,7 +19,8 @@ class Category(Base):
     created_by = Column(Integer)
     modified_by = Column(Integer, nullable=True)
     status_id = Column(Integer)
-    parent_id = Column(Integer)
+    parent_id = Column(Integer, ForeignKey('model_category.id'))
+    parent = relationship("Category")
 
     class Meta:
         managed = False

@@ -20,19 +20,3 @@ class AccountType(Base):
     class Meta:
         managed = False
         db_table = 'model_accounttype'
-
-# class ModelAccounttype(models.Model):
-#     id = models.BigAutoField(primary_key=True)
-#     name = models.CharField(max_length=100)
-#     memo = models.CharField(max_length=500, blank=True, null=True)
-#     is_system_value = models.BooleanField()
-#     created_date = models.DateTimeField()
-#     modified_date = models.DateTimeField(blank=True, null=True)
-#     version = models.IntegerField()
-#     created_by = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='created_by')
-#     modified_by = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='modified_by', blank=True, null=True)
-#     status = models.ForeignKey('ModelStatus', models.DO_NOTHING)
-
-#     class Meta:
-#         managed = False
-#         db_table = 'model_accounttype'
