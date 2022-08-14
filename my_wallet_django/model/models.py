@@ -144,8 +144,8 @@ class GlobalParam(models.Model):
     name = models.CharField(max_length=100)
     key_name = models.CharField(max_length=100)
     type = models.CharField(max_length=100)
-    value1 = models.IntegerField(null=True)
-    value2 = models.CharField(max_length=100, null=True)
+    value1 = models.IntegerField(null=True, blank=True)
+    value2 = models.CharField(max_length=100, null=True, blank=True)
     memo = models.CharField(max_length=500, null=True, blank=True)
     status_id = models.ForeignKey(
         Status, models.DO_NOTHING, db_column='status_id')
