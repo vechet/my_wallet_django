@@ -77,15 +77,6 @@ class AuthUserUserPermissions(models.Model):
         unique_together = (('user', 'permission'),)
 
 
-class Book(models.Model):
-    title = models.CharField(max_length=-1, blank=True, null=True)
-    description = models.CharField(max_length=-1, blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'book'
-
-
 class DjangoAdminLog(models.Model):
     action_time = models.DateTimeField()
     object_id = models.TextField(blank=True, null=True)
@@ -293,7 +284,6 @@ class ModelGlobalparam(models.Model):
 
 class ModelIncomeorexpense(models.Model):
     id = models.BigAutoField(primary_key=True)
-    type = models.IntegerField()
     amount = models.DecimalField(max_digits=18, decimal_places=4)
     transaction_date = models.DateTimeField()
     memo = models.CharField(max_length=500, blank=True, null=True)
@@ -307,6 +297,7 @@ class ModelIncomeorexpense(models.Model):
     modified_by = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='modified_by', blank=True, null=True)
     payment_method = models.ForeignKey('ModelPaymentmethod', models.DO_NOTHING)
     status = models.ForeignKey('ModelStatus', models.DO_NOTHING)
+    transaction_type = models.ForeignKey(ModelGlobalparam, models.DO_NOTHING)
     user_account = models.ForeignKey(AuthUser, models.DO_NOTHING)
 
     class Meta:

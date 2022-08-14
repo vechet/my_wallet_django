@@ -22,7 +22,6 @@ def get_income_or_expense(db: Session, skip: int, limit: int):
         for result in results:
             record = IncomeOrExpense(
                 id=result.id,
-                type=result.type,
                 amount=result.amount,
                 transaction_date=result.transaction_date,
                 memo=result.memo,
@@ -42,8 +41,12 @@ def get_income_or_expense(db: Session, skip: int, limit: int):
                     "id": result.payment_method.id,
                     "name": result.payment_method.name},
                 user={"id": result.user.id, "name": result.user.username},
+                transaction_type={
+                    "id": result.transaction_type.id,
+                    "name": result.transaction_type.name},
             )
             result_list.append(record)
+        # return Response(status="Ok", code="200", message="Fetch data successfully!", result=results)
         return Response(status="Ok", code="200", message="Fetch data successfully!", result=result_list)
     except:
         print("Error: ", sys.exc_info()[0])

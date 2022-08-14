@@ -1,5 +1,6 @@
 from xmlrpc.client import Boolean
 from sqlalchemy import Column, DateTime, Integer, String, Boolean, DECIMAL
+from my_wallet_django.api_modules.global_param.models import GlobalParam
 from my_wallet_django.config import Base
 from sqlalchemy.orm import relationship
 from sqlalchemy import ForeignKey
@@ -9,7 +10,8 @@ class IncomeOrExpense(Base):
     __tablename__ = "model_incomeorexpense"
 
     id = Column(Integer, primary_key=True)
-    type = Column(Integer)
+    global_param_id = Column(Integer, ForeignKey('model_globalparam.id'))
+    transaction_type = relationship("GlobalParam")
     amount = Column(DECIMAL)
     transaction_date = Column(DateTime)
     memo = Column(String, nullable=True)

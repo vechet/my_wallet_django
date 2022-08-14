@@ -139,9 +139,22 @@ class PaymentMethod(models.Model):
     version = models.IntegerField()
 
 
+class GlobalParam(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    name = models.CharField(max_length=100)
+    key_name = models.CharField(max_length=100)
+    type = models.CharField(max_length=100)
+    value1 = models.IntegerField(null=True)
+    value2 = models.CharField(max_length=100, null=True)
+    memo = models.CharField(max_length=500, null=True, blank=True)
+    status_id = models.ForeignKey(
+        Status, models.DO_NOTHING, db_column='status_id')
+
+
 class IncomeOrExpense(models.Model):
     id = models.BigAutoField(primary_key=True)
-    type = models.IntegerField()
+    global_param_id = models.ForeignKey(
+        GlobalParam, models.DO_NOTHING, db_column='global_param_id', null=True, blank=True)
     category_id = models.ForeignKey(
         Category, models.DO_NOTHING, db_column='category_id')
     amount = models.DecimalField(max_digits=18, decimal_places=4)
@@ -174,18 +187,6 @@ class FileDocument(models.Model):
     file_type = models.IntegerField()
     income_or_expense_id = models.ForeignKey(
         IncomeOrExpense, models.DO_NOTHING, db_column='income_or_expense_id', null=True, blank=True)
-
-
-class GlobalParam(models.Model):
-    id = models.BigAutoField(primary_key=True)
-    name = models.CharField(max_length=100)
-    key_name = models.CharField(max_length=100)
-    type = models.CharField(max_length=100)
-    value1 = models.IntegerField(null=True)
-    value2 = models.CharField(max_length=100, null=True)
-    memo = models.CharField(max_length=500, null=True, blank=True)
-    status_id = models.ForeignKey(
-        Status, models.DO_NOTHING, db_column='status_id')
 
 
 class NotificationDeviceToken(models.Model):
