@@ -89,10 +89,10 @@ WSGI_APPLICATION = 'my_wallet_django.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'df81ua8gcn4i42',
-        'USER': 'kyioskebqiiols',
-        'PASSWORD': 'bfaa60a537021c84f276e122642e47a2f58a102792480561e6a839fc9187284b',
-        'HOST': 'ec2-3-213-228-206.compute-1.amazonaws.com',
+        'NAME': 'dfs6u0v2548jqd',
+        'USER': 'gytkjiulwanddp',
+        'PASSWORD': 'b8aedce7500cc663eadfc3d49713c5d5f9ad05c94cd145973bd9d6c8ba186393',
+        'HOST': 'ec2-34-227-135-211.compute-1.amazonaws.com',
         'PORT': '5432',
     }
 }
