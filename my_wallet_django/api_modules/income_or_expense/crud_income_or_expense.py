@@ -34,7 +34,9 @@ def get_income_or_expense(db: Session, skip: int, limit: int):
                 # version=result.version,
                 account={
                     "id": result.account.id,
-                    "name": result.account.name},
+                    "name": result.account.name,
+                    "currency": result.account.currency.name,
+                    "abbreviate":  result.account.currency.abbreviate},
                 category={
                     "id": result.category.id,
                     "name": result.category.name,
