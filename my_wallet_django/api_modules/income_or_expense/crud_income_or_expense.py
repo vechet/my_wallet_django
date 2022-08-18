@@ -4,6 +4,7 @@ from unicodedata import category
 from sqlalchemy.orm import Session
 from my_wallet_django.api_modules.account.models import Account
 from my_wallet_django.api_modules.category.models import Category
+from my_wallet_django.api_modules.global_param.models import GlobalParam
 from my_wallet_django.api_modules.payment_method.models import PaymentMethod
 from my_wallet_django.api_modules.authentication.models import AuthUser
 from my_wallet_django.api_modules.income_or_expense.models import IncomeOrExpense
@@ -70,16 +71,18 @@ def create_income_or_expense(db: Session, income_or_expense: IncomeOrExpenseCrea
             PaymentMethod.id == income_or_expense.payment_method_id).first()
         user = db.query(AuthUser).filter(
             AuthUser.id == income_or_expense.user_account_id).first()
+        transaction_type = db.query(GlobalParam).filter(
+            GlobalParam.id == income_or_expense.transaction_type_id).first()
 
         new_income_or_expense = IncomeOrExpense(
-            type=income_or_expense.type,
+            transaction_type=transaction_type,
             amount=income_or_expense.amount,
             transaction_date=income_or_expense.transaction_date,
             memo=income_or_expense.memo,
-            account_id=account.id,
-            category_id=category.id,
-            payment_method_id=payment_method.id,
-            user_account_id=user.id,
+            account=account,
+            category=category,
+            payment_method=payment_method,
+            user=user,
             is_system_value=False,
             created_date=datetime.now(),
             created_by=1,
@@ -106,25 +109,17 @@ def delete_income_or_expense(db: Session, id: int):
 
 def update_income_or_expense(db: Session, income_or_expense: IncomeOrExpenseUpdate):
     try:
-        account = db.query(Account).filter(
-            Account.id == income_or_expense.account_id).first()
-        category = db.query(Category).filter(
-            Category.id == income_or_expense.category_id).first()
-        payment_method = db.query(PaymentMethod).filter(
-            PaymentMethod.id == income_or_expense.payment_method_id).first()
-        user = db.query(AuthUser).filter(
-            AuthUser.id == income_or_expense.user_account_id).first()
 
         current_income_or_expense = get_income_or_expense_by_id(
             db=db, id=income_or_expense.id)
-        current_income_or_expense.type = income_or_expense.type,
+        current_income_or_expense.global_param_id = income_or_expense.transaction_type_id
         current_income_or_expense.amount = income_or_expense.amount,
         current_income_or_expense.transaction_date = income_or_expense.transaction_date,
         current_income_or_expense.memo = income_or_expense.memo,
-        current_income_or_expense.account_id = account.id,
-        current_income_or_expense.category_id = category.id,
-        current_income_or_expense.payment_method_id = payment_method.id,
-        current_income_or_expense.user_account_id = user.id,
+        current_income_or_expense.account_id = income_or_expense.account_id,
+        current_income_or_expense.category_id = income_or_expense.category_id,
+        current_income_or_expense.payment_method_id = income_or_expense.payment_method_id,
+        current_income_or_expense.user_account_id = income_or_expense.user_account_id,
         current_income_or_expense.modified_date = datetime.now(),
         current_income_or_expense.modified_by = 1,
         current_income_or_expense.version = current_income_or_expense.version + 1,
