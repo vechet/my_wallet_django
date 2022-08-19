@@ -12,7 +12,6 @@ class IncomeOrExpenseCreate(BaseModel):
     account_id: int
     category_id: int
     payment_method_id: int
-    user_account_id: int
 
 
 class IncomeOrExpenseUpdate(BaseModel):
@@ -24,7 +23,6 @@ class IncomeOrExpenseUpdate(BaseModel):
     account_id: int
     category_id: int
     payment_method_id: int
-    user_account_id: int
 
 
 class IncomeOrExpenseDelete(BaseModel):

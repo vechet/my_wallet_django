@@ -62,7 +62,7 @@ def create_token(auth_details: AuthDetails, db: Session = Depends(get_db)):
                         message="Invalid username and/or password!").dict(exclude_none=True)
 
     # generate token
-    token = auth_handler.encode_token(user.username)
+    token = auth_handler.encode_token(user.id)
     token['user_id'] = user.id
 
     # create token

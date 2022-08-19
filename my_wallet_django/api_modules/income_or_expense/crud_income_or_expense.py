@@ -60,7 +60,7 @@ def get_income_or_expense_by_id(db: Session, id: int):
     return db.query(IncomeOrExpense).filter(IncomeOrExpense.id == id).first()
 
 
-def create_income_or_expense(db: Session, income_or_expense: IncomeOrExpenseCreate):
+def create_income_or_expense(user_id: int, db: Session, income_or_expense: IncomeOrExpenseCreate):
     try:
         status = db.query(Status).filter(Status.key_name == "Active").first()
         account = db.query(Account).filter(
@@ -70,7 +70,7 @@ def create_income_or_expense(db: Session, income_or_expense: IncomeOrExpenseCrea
         payment_method = db.query(PaymentMethod).filter(
             PaymentMethod.id == income_or_expense.payment_method_id).first()
         user = db.query(AuthUser).filter(
-            AuthUser.id == income_or_expense.user_account_id).first()
+            AuthUser.id == user_id).first()
         transaction_type = db.query(GlobalParam).filter(
             GlobalParam.id == income_or_expense.transaction_type_id).first()
 
@@ -119,7 +119,8 @@ def update_income_or_expense(db: Session, income_or_expense: IncomeOrExpenseUpda
         current_income_or_expense.account_id = income_or_expense.account_id,
         current_income_or_expense.category_id = income_or_expense.category_id,
         current_income_or_expense.payment_method_id = income_or_expense.payment_method_id,
-        current_income_or_expense.user_account_id = income_or_expense.user_account_id,
+        # current_income_or_expense.user_account_id = income_or_expense.user_account_id,
+        current_income_or_expense.user_account_id = 1,
         current_income_or_expense.modified_date = datetime.now(),
         current_income_or_expense.modified_by = 1,
         current_income_or_expense.version = current_income_or_expense.version + 1,

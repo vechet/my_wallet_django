@@ -25,8 +25,8 @@ async def get_income_or_expense_service(skip: int = 0, limit: int = 100, usernam
 
 
 @router.post("/createIncomeOrExpense")
-async def create_income_or_expense_service(request: IncomeOrExpenseCreate, username=Depends(auth_handler.auth_wrapper), db: Session = Depends(get_db)):
-    create_income_or_expense(db, income_or_expense=request)
+async def create_income_or_expense_service(request: IncomeOrExpenseCreate, user_id=Depends(auth_handler.auth_wrapper), db: Session = Depends(get_db)):
+    create_income_or_expense(int(user_id), db, income_or_expense=request)
     return Response(status="Ok",
                     code="200",
                     message="Income or expense created successfully!").dict(exclude_none=True)
