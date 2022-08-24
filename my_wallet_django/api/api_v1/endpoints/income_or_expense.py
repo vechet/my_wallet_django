@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from my_wallet_django.api_modules.income_or_expense.crud_income_or_expense import get_income_or_expense, create_income_or_expense, update_income_or_expense, delete_income_or_expense
+from my_wallet_django.api_modules.income_or_expense.crud_income_or_expense import get_income_or_expense, create_income_or_expense, get_income_or_expense_detail, update_income_or_expense, delete_income_or_expense
 from my_wallet_django.api_modules.income_or_expense.schemas import IncomeOrExpenseCreate, IncomeOrExpenseUpdate, IncomeOrExpenseDelete
 from my_wallet_django.api_modules.base_schemas import Response
 from my_wallet_django.config import SessionLocal
@@ -22,6 +22,12 @@ def get_db():
 async def get_income_or_expense_service(skip: int = 0, limit: int = 100, username=Depends(auth_handler.auth_wrapper), db: Session = Depends(get_db)):
     _income_or_expenses = get_income_or_expense(db, skip, limit)
     return _income_or_expenses
+
+
+@router.get("/incomeOrExpenseDetail")
+async def get_income_or_expense_service(id: int, username=Depends(auth_handler.auth_wrapper), db: Session = Depends(get_db)):
+    _income_or_expenses_detail = get_income_or_expense_detail(db, id)
+    return _income_or_expenses_detail
 
 
 @router.post("/createIncomeOrExpense")

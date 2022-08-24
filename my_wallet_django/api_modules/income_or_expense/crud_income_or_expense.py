@@ -26,13 +26,6 @@ def get_income_or_expense(db: Session, skip: int, limit: int):
                 amount=result.amount,
                 transaction_date=result.transaction_date,
                 memo=result.memo,
-                # is_system_value=result.is_system_value,
-                # created_date=result.created_date,
-                # created_by=result.created_by,
-                # modified_date=result.modified_date,
-                # modified_by=result.modified_by,
-                # status_id=result.status_id,
-                # version=result.version,
                 account={
                     "id": result.account.id,
                     "name": result.account.name,
@@ -45,13 +38,45 @@ def get_income_or_expense(db: Session, skip: int, limit: int):
                 payment_method={
                     "id": result.payment_method.id,
                     "name": result.payment_method.name},
-                user={"id": result.user.id, "name": result.user.username},
                 transaction_type={
                     "id": result.transaction_type.id,
                     "name": result.transaction_type.name},
             )
             result_list.append(record)
         return Response(status="Ok", code="200", message="Fetch data successfully!", result=result_list)
+    except:
+        print("Error: ", sys.exc_info()[0])
+
+
+def get_income_or_expense_detail(db: Session, id: int):
+    try:
+        status = db.query(Status).filter(Status.key_name == "Active").first()
+        data = db.query(IncomeOrExpense).filter(
+            IncomeOrExpense.status_id == status.id and IncomeOrExpense.id == id).first()
+
+        result = IncomeOrExpense(
+            id=data.id,
+            amount=data.amount,
+            transaction_date=data.transaction_date,
+            memo=data.memo,
+            account={
+                "id": data.account.id,
+                "name": data.account.name,
+                "currency_id": data.account.currency.id,
+                "currency": data.account.currency.name,
+                "abbreviate":  data.account.currency.abbreviate},
+            category={
+                "id": data.category.id,
+                "name": data.category.name},
+            payment_method={
+                "id": data.payment_method.id,
+                "name": data.payment_method.name},
+            transaction_type={
+                "id": data.transaction_type.id,
+                "name": data.transaction_type.name},
+        )
+
+        return Response(status="Ok", code="200", message="Fetch data successfully!", result=result)
     except:
         print("Error: ", sys.exc_info()[0])
 
@@ -119,7 +144,6 @@ def update_income_or_expense(db: Session, income_or_expense: IncomeOrExpenseUpda
         current_income_or_expense.account_id = income_or_expense.account_id,
         current_income_or_expense.category_id = income_or_expense.category_id,
         current_income_or_expense.payment_method_id = income_or_expense.payment_method_id,
-        # current_income_or_expense.user_account_id = income_or_expense.user_account_id,
         current_income_or_expense.user_account_id = 1,
         current_income_or_expense.modified_date = datetime.now(),
         current_income_or_expense.modified_by = 1,

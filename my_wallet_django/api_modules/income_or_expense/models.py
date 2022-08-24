@@ -21,8 +21,6 @@ class IncomeOrExpense(Base):
     category = relationship("Category")
     payment_method_id = Column(Integer, ForeignKey('model_paymentmethod.id'))
     payment_method = relationship("PaymentMethod")
-    user_account_id = Column(Integer, ForeignKey('auth_user.id'))
-    user = relationship("AuthUser")
     is_system_value = Column(Boolean)
     created_date = Column(DateTime)
     modified_date = Column(DateTime, nullable=True)
