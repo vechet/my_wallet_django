@@ -17,18 +17,10 @@ def get_account_type(db: Session, skip: int, limit: int):
         for result in results:
             record = AccountType(
                 id=result.id,
-                name=result.name,
-                # memo=result.memo,
-                # is_system_value=result.is_system_value,
-                # created_date=result.created_date,
-                # created_by=result.created_by,
-                # modified_date=result.modified_date,
-                # modified_by=result.modified_by,
-                # status_id=result.status_id,
-                # version=result.version,
+                name=result.name
             )
             result_list.append(record)
-        return Response(status="Ok", code="200", message="Fetch data successfully!", result=result_list)
+        return Response(status="Ok", code="200", message="Fetch data successfully!",size=len(result_list), result=result_list)
     except:
         print("Error: ", sys.exc_info()[0])
 

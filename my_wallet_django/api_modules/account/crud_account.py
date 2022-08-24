@@ -22,13 +22,6 @@ def get_account(db: Session, skip: int, limit: int):
                 name=result.name,
                 back_account_number=result.back_account_number,
                 opening_balance=result.opening_balance,
-                # is_system_value=result.is_system_value,
-                # created_date=result.created_date,
-                # created_by=result.created_by,
-                # modified_date=result.modified_date,
-                # modified_by=result.modified_by,
-                # status_id=result.status_id,
-                # version=result.version,
                 account_type={
                     "id": result.account_type.id,
                     "name": result.account_type.name},
@@ -37,7 +30,7 @@ def get_account(db: Session, skip: int, limit: int):
                     "name": result.currency.name}
             )
             result_list.append(record)
-        return Response(status="Ok", code="200", message="Fetch data successfully!", result=result_list)
+        return Response(status="Ok", code="200", message="Fetch data successfully!",size=len(result_list), result=result_list)
     except:
         print("Error: ", sys.exc_info()[0])
 

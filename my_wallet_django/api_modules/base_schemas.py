@@ -13,4 +13,5 @@ class Response(GenericModel, Generic[T]):
     code: str
     status: str
     message: str
+    size: int
     result: Optional[T]

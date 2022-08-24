@@ -43,7 +43,7 @@ def get_income_or_expense(db: Session, skip: int, limit: int):
                     "name": result.transaction_type.name},
             )
             result_list.append(record)
-        return Response(status="Ok", code="200", message="Fetch data successfully!", result=result_list)
+        return Response(status="Ok", code="200", message="Fetch data successfully!",size=len(result_list), result=result_list)
     except:
         print("Error: ", sys.exc_info()[0])
 
